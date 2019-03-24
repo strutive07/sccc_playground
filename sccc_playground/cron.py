@@ -7,7 +7,7 @@ def scheduler():
     boj.login_boj(settings.BOJ_ID, settings.BOJ_PASSWORD)
     solved_problems = boj.get_group_solving_log()
     broker = message()
-    for problem in solved_problems:
+    for problem in reversed(solved_problems):
         user_id = problem['user_id']
         problem_id = problem['problem_id']
         problem_title = problem['problem_title']
