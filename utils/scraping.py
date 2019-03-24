@@ -13,7 +13,7 @@ class Boj:
     def __init__(self):
         self.user_id = None
         self.cookie = None
-        self.file_path = f"{settings.BASE_DIR}/utils/last_submission_id"
+        self.file_path = "%s/utils/last_submission_id".format(settings.BASE_DIR)
         with open(self.file_path, 'r') as f:
             tmp_last_submission_id = f.read()
             if len(tmp_last_submission_id) == 0:
