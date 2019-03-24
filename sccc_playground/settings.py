@@ -18,7 +18,7 @@ def get_env_variable(var_name):
     try:
         return os.environ[var_name]
     except KeyError:
-        error_msg = '필수 환경 변수 %s가 설정되지 않았습니다.'.format(var_name)
+        error_msg = '필수 환경 변수 %s가 설정되지 않았습니다.' % (var_name)
         raise ImproperlyConfigured(error_msg)
 
 load_dotenv(find_dotenv())

@@ -36,12 +36,12 @@ class message:
         self.slack = Slacker(self.token)
     def send_solve_log(self, user_id, problem_id, problem_title, memory, time, language):
         attachments = AttachmentsTemplate.solving_attachment
-        attachments[0]['pretext'] = "%s 가  %s 문제를 풀었습니다".format(user_id, problem_title)
+        attachments[0]['pretext'] = "%s 가  %s 문제를 풀었습니다"% (user_id, problem_title)
         attachments[0]["title"] = str(problem_title)
-        attachments[0]["title_link"] = "https://www.acmicpc.net/problem/%s".format(problem_id)
+        attachments[0]["title_link"] = "https://www.acmicpc.net/problem/%s"%(problem_id)
         attachments[0]["fields"][0]["value"] = str(language)
-        attachments[0]["fields"][1]["value"] = "%s ms".format(time)
-        attachments[0]["fields"][2]["value"] = "%s B".format(memory)
+        attachments[0]["fields"][1]["value"] = "%s ms"%(time)
+        attachments[0]["fields"][2]["value"] = "%s B"%(memory)
         self.send_message(channel="#dev-playground", attachments=attachments)
 
     def send_message(self, message=None, channel="#dev-playground", username="SCCC Playground", attachments=None):
