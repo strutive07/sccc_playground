@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'utils'
+    'utils',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -141,5 +142,5 @@ SECRET_KEY = get_env_variable("SECRET_KEY")
 SLACK_KEY = get_env_variable("SLACK_KEY")
 
 CRONJOBS = [
-    ('* * * * *', 'sccc_playground.cron.scheduler')
+    ('*/3 * * * *', 'sccc_playground.cron.scheduler')
 ]
