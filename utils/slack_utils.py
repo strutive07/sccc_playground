@@ -42,7 +42,7 @@ class message:
         attachments[0]["fields"][0]["value"] = str(language)
         attachments[0]["fields"][1]["value"] = "%s ms"%(time)
         attachments[0]["fields"][2]["value"] = "%s B"%(memory)
-        self.send_message(channel="#dev-playground", attachments=attachments)
+        self.send_message(channel="#solvelog", attachments=attachments)
 
     def send_message(self, message=None, channel="#dev-playground", username="SCCC Playground", attachments=None):
         self.slack.chat.post_message(channel=channel,text=message, username=username, attachments=attachments)
