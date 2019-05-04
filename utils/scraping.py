@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import *
 BOJ_URL = 'https://www.acmicpc.net'
+from utils.slack_utils import message
 
 last_submission_id = None
 
@@ -16,6 +17,7 @@ class Boj:
         print(settings.BASE_DIR)
         self.file_path = settings.BASE_DIR + "/utils/last_submission_id"
         print(self.file_path)
+        self.slack = message()
         with open(self.file_path, 'r') as f:
             tmp_last_submission_id = f.read()
             if len(tmp_last_submission_id) == 0:
@@ -69,26 +71,32 @@ class Boj:
         rows = table.find_all('tr')
         new_solved_list = []
         for row in rows:
-            items = row.find_all('td')
+            try:
+                items = row.find_all('td')
 
-            problem = {}
-            problem['submission_id'] = int(items[0].text)
-            problem['user_id'] = items[1].a.text
-            problem['problem_id'] = items[2].a.text
-            problem['problem_title'] = items[2].a['title']
-            problem['memory'] = items[4].text
-            problem['time'] = items[5].text
-            problem['language'] = items[6].text
-            problem['length'] = items[7].text
-            problem['date'] = items[8].a['title']
-            if (self.last_submission_id == None):
-                new_solved_list.append(problem)
-                break
-            elif (self.last_submission_id < problem['submission_id']):
-                new_solved_list.append(problem)
-            else:
-                break
-
+                problem = {}
+                problem['submission_id'] = int(items[0].text)
+                problem['user_id'] = items[1].a.text
+                problem['problem_id'] = items[2].a.text
+                problem['problem_title'] = items[2].a['title']
+                problem['memory'] = items[4].text
+                problem['time'] = items[5].text
+                problem['language'] = items[6].text
+                problem['length'] = items[7].text
+                problem['date'] = items[8].a['title']
+                if (self.last_submission_id == None):
+                    new_solved_list.append(problem)
+                    break
+                elif (self.last_submission_id < problem['submission_id']):
+                    new_solved_list.append(problem)
+                else:
+                    break
+            excep Exception as e:
+                print(items)
+                message.send_message(message=e, channel="#dev-playground", username="SCCC Playground")
+                message.send_message(message=str(items), channel="#dev-playground", username="SCCC Playground")
+                pass
+   
         if len(rows) == len(new_solved_list):
             tmp_list = self.get_group_solving_log(top=new_solved_list[-1]['submission_id'])
             new_solved_list.extend(tmp_list)
