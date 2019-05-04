@@ -91,7 +91,7 @@ class Boj:
                     new_solved_list.append(problem)
                 else:
                     break
-            excep Exception as e:
+            except Exception as e:
                 print(items)
                 message.send_message(message=e, channel="#dev-playground", username="SCCC Playground")
                 message.send_message(message=str(items), channel="#dev-playground", username="SCCC Playground")
