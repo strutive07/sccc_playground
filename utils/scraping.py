@@ -93,8 +93,8 @@ class Boj:
                     break
             except Exception as e:
                 print(items)
-                self.message.send_message(message=e, channel="#dev-playground", username="SCCC Playground")
-                self.message.send_message(message=str(items), channel="#dev-playground", username="SCCC Playground")
+                self.slack.send_message(message=e, channel="#dev-playground", username="SCCC Playground")
+                self.slack.send_message(message=str(items), channel="#dev-playground", username="SCCC Playground")
                 pass
    
         if len(rows) == len(new_solved_list):
