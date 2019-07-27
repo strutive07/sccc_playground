@@ -103,7 +103,10 @@ class Boj:
 
         if len(new_solved_list) != 0 and top is None:
             self.last_submission_id = new_solved_list[0]['submission_id']
-            with open(self.file_path, 'w') as f:
-                f.write(str(self.last_submission_id))
+            if self.last_submission_id is not None:
+                with open(self.file_path, 'w') as f:
+                    f.write(str(self.last_submission_id))
+            else:
+                new_solved_list = []
         return new_solved_list
 
